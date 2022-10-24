@@ -1,0 +1,47 @@
+.dialogs {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+        "d m"
+        "a a";
+}
+
+.dialogsItems {
+    padding: 10px;
+    text-decoration: none;
+    grid-area: d
+}
+
+    .dialogsItems .active {
+        color: saddlebrown;
+        text-decoration: none
+    }
+
+    .dialogsItems:visited {
+        padding: 10px;
+        text-decoration: none;
+    }
+
+.messages {
+    padding: 10px;
+    grid-area: m
+}
+
+.message {
+}
+
+.dialogs img {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px
+}
+
+.addMessage {
+    grid-area: a;
+}
+
+.button {
+    width: 80px;
+    height: 25px;
+}

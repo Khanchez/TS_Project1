@@ -1,26 +1,12 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+﻿import React from 'react';  import logo from './logo.svg';  import './App.css';  import StateInterface from './Model/StateInteface';  import { BrowserRouter, Route, Routes } from "react-router-dom";  import Header from './components/Header/Header';  import Navbar from './components/Navbar/Navbar';  import FriendNav from './components/Navbar/FriendNav/FriendNav';  import DialogsComponent from './components/Dialogs/DialogsComponent';  import ProfileComponent from './components/Profile/ProfileComponent';   import NewsComponent from './components/News/NewsComponent';
+import MusicComponent from './components/Music/MusicComponent';
+import SettingsComponent from './components/Settings/SettingsComponent';
+import FriendsComponent from './components/Friends/FriendItem/FriendItemComponent';
+import { inject } from 'inversify';
+import StateService from './Service/StateService';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
 
-export default App;
+export default class App extends React.Component{      private stateService: StateService;      constructor(@inject('StateService') stateService: StateService) {         super(stateService);
+        this.stateService = stateService;     }      render() {          return (             <BrowserRouter>                 <div className='app-wrapper'>                     <Header />                     <Navbar element={<FriendNav friends={this.stateService.getFriendData()} />} />                     <div className='app-wrapper-content'>                         <Routes>                             <Route path='/dialogs/*' element=                                 {<DialogsComponent dialogs={this.stateService.getDialogsData()}                                     messages={this.stateService.getMessageData()}                                     img={this.stateService.getDialogsData()}                                 />} />                             <Route path='/profile' element=                                 {<ProfileComponent posts={this.stateService.getPostData()} />} />                              <Route path='/news' element={<NewsComponent />} />                         <Route path='/music' element={<MusicComponent />} />                         <Route path='/settings' element={<SettingsComponent />} />                             {/*<Route path='/friends' element=
+                                {<FriendsComponent friends={this.props.friendsData} />} />*/}                          </Routes>                      </div>                 </div>                 </BrowserRouter>         );     }
+ }  
